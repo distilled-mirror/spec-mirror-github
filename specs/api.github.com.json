@@ -21866,7 +21866,7 @@
         "operationId": "code-scanning/get-ai-scan-enablement-for-org",
         "externalDocs": {
           "description": "API method documentation",
-          "url": "https://docs.github.com/rest/code-scanning/ai-scan#get-the-ai-scan-setting-for-an-organization"
+          "url": "https://docs.github.com/rest/code-scanning/code-scanning#get-the-ai-scan-setting-for-an-organization"
         },
         "parameters": [
           {
@@ -21900,7 +21900,7 @@
           "githubCloudOnly": false,
           "enabledForGitHubApps": true,
           "category": "code-scanning",
-          "subcategory": "ai-scan"
+          "subcategory": "code-scanning"
         }
       },
       "patch": {
@@ -21912,7 +21912,7 @@
         "operationId": "code-scanning/update-ai-scan-enablement-for-org",
         "externalDocs": {
           "description": "API method documentation",
-          "url": "https://docs.github.com/rest/code-scanning/ai-scan#update-the-ai-scan-setting-for-an-organization"
+          "url": "https://docs.github.com/rest/code-scanning/code-scanning#update-the-ai-scan-setting-for-an-organization"
         },
         "parameters": [
           {
@@ -21964,7 +21964,7 @@
           "githubCloudOnly": false,
           "enabledForGitHubApps": true,
           "category": "code-scanning",
-          "subcategory": "ai-scan"
+          "subcategory": "code-scanning"
         }
       }
     },
@@ -51464,16 +51464,10 @@
                 "$ref": "#/components/schemas/code-scanning-ai-scan-enablement-update"
               },
               "examples": {
-                "enabled": {
+                "default": {
                   "summary": "Enable AI Scan",
                   "value": {
                     "pr_scan": "enabled"
-                  }
-                },
-                "disabled": {
-                  "summary": "Disable AI Scan",
-                  "value": {
-                    "pr_scan": "disabled"
                   }
                 }
               }
@@ -56766,6 +56760,9 @@
           },
           "404": {
             "$ref": "#/components/responses/not_found"
+          },
+          "410": {
+            "$ref": "#/components/responses/gone"
           }
         },
         "x-github": {
@@ -56909,6 +56906,9 @@
           },
           "409": {
             "$ref": "#/components/responses/conflict"
+          },
+          "410": {
+            "$ref": "#/components/responses/gone"
           },
           "422": {
             "$ref": "#/components/responses/validation_failed_simple"
@@ -75737,7 +75737,7 @@
     "/repos/{owner}/{repo}/secret-scanning/custom-patterns": {
       "get": {
         "summary": "List repository custom patterns",
-        "description": "Lists secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.",
+        "description": "Lists secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.\n\nFine-grained access tokens require the `administration:write` repository permission.",
         "tags": [
           "secret-scanning"
         ],
@@ -75812,7 +75812,7 @@
       },
       "post": {
         "summary": "Bulk create repository custom patterns",
-        "description": "Bulk creates secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.",
+        "description": "Bulk creates secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.\n\nFine-grained access tokens require the `administration:write` repository permission.",
         "tags": [
           "secret-scanning"
         ],
@@ -75932,7 +75932,7 @@
       },
       "delete": {
         "summary": "Bulk delete repository custom patterns",
-        "description": "Bulk deletes secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.",
+        "description": "Bulk deletes secret scanning custom patterns for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.\n\nFine-grained access tokens require the `administration:write` repository permission.",
         "tags": [
           "secret-scanning"
         ],
@@ -76014,7 +76014,7 @@
     "/repos/{owner}/{repo}/secret-scanning/custom-patterns/{pattern_id}": {
       "patch": {
         "summary": "Update a repository custom pattern",
-        "description": "Updates a secret scanning custom pattern for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.",
+        "description": "Updates a secret scanning custom pattern for a repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.\n\nFine-grained access tokens require the `administration:write` repository permission.",
         "tags": [
           "secret-scanning"
         ],
@@ -130199,7 +130199,7 @@
         "type": "object",
         "properties": {
           "pr_scan": {
-            "description": "Whether AI Scan is enabled for the organization. Organization respects enterprise policy. Disabled organizations prevent repositories from enabling AI Scna. Enabled organizations enable AI Scan for their repositories, but individual repositories can opt out.",
+            "description": "Whether AI Scan is enabled for the organization. Organization respects enterprise policy. Disabled organizations prevent repositories from enabling AI Scan. Enabled organizations enable AI Scan for their repositories, but individual repositories can opt out.",
             "type": "string",
             "enum": [
               "enabled",
