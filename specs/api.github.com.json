@@ -35071,7 +35071,7 @@
       },
       "post": {
         "summary": "Register an app installation for external custom properties",
-        "description": "Registers a GitHub App installation so it can read and write external custom properties for an organization, and assigns it a display name.\n\nAn app installation can only be registered once, and its display name can't be changed afterward. Calling with an app installation that has already been registered returns a `422` response with an `already_exists` error code.\n\nUninstalling the GitHub App unregisters it, and removes the external custom properties it created.\n\nTo use this endpoint, the authenticated caller must have the `organization_external_properties_for_repos:admin` permission.",
+        "description": "Registers a GitHub App installation so it can read and write external custom properties for an organization, and assigns it a display name.\n\nThe display name must be 1 to 15 characters and contain only letters and numbers. Capitalization is preserved as entered.\n\nAn app installation can only be registered once, and its display name can't be changed afterward. Calling with an app installation that has already been registered returns a `422` response with an `already_exists` error code for `installation_id`. If the display name is already in use by another app installation in the organization, the response is `422` with an `already_exists` error code for `display_name`. An invalid display name also returns `422`.\n\nThe app installation being registered must have write or admin permission for organization external custom properties for repositories. If it doesn't, the response is `422`. This is the permission of the installation being registered, which isn't necessarily the caller.\n\nUninstalling the GitHub App unregisters it, and removes the external custom properties it created.\n\nTo use this endpoint, the authenticated caller must have the `organization_external_properties_for_repos:admin` permission.",
         "tags": [
           "orgs"
         ],
@@ -35098,7 +35098,7 @@
                   },
                   "display_name": {
                     "type": "string",
-                    "description": "The display name for this app installation's external custom properties in the organization. This can't be changed after the app installation is registered.",
+                    "description": "The display name for this app installation's external custom properties in the organization. Must be 1 to 15 characters and contain only letters and numbers. Capitalization is preserved as entered. This can't be changed after the app installation is registered.",
                     "minLength": 1,
                     "maxLength": 15,
                     "pattern": "^[a-zA-Z0-9]+$"
@@ -72403,6 +72403,11 @@
                       "direct_merge",
                       "merge_queue"
                     ]
+                  },
+                  "bypass_rules": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to bypass repository rules that the authenticated actor is permitted to bypass."
                   }
                 }
               },
@@ -72611,7 +72616,8 @@
                         "uuid": "630b9d5e-3f2a-4f7e-8b0c-2d5f9a8c1e42",
                         "merge_method": "merge",
                         "merge_action": "default",
-                        "expected_head_sha": "6dcb09b5b57875f334f61aebed695e2e4193db5e"
+                        "expected_head_sha": "6dcb09b5b57875f334f61aebed695e2e4193db5e",
+                        "bypass_rules": false
                       }
                     }
                   },
@@ -156366,6 +156372,11 @@
                   "expected_head_sha": {
                     "type": "string",
                     "description": "SHA that the pull request head must match for the enqueued merge to proceed."
+                  },
+                  "bypass_rules": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether the asynchronous merge request will attempt to bypass repository rules that the authenticated actor is permitted to bypass."
                   }
                 },
                 "required": [
