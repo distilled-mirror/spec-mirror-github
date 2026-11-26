@@ -24243,7 +24243,7 @@
           },
           {
             "name": "statusId",
-            "description": "The Node ID of the planning status the issue starts in. It must be an open one\nlisted in the owner's planningStatuses. If you don't have permission to set\nthe status, it's ignored and the issue starts in Backlog. Issue statuses are\nin preview and only available to accounts enrolled in the preview.",
+            "description": "The Node ID of the planning status the issue starts in. It must be an open one\nlisted in the owner's planningStatuses. If you don't have permission to set\nthe status, it's ignored and the issue starts in Backlog. Issue statuses are\nin public preview and subject to change. They're rolling out gradually, so\nthey might not be available in your repositories yet.",
             "type": {
               "kind": "SCALAR",
               "name": "ID",
@@ -56268,7 +56268,7 @@
           },
           {
             "name": "status",
-            "description": "The status of this issue, or null when it has none or issue statuses aren't\navailable in the repository. Issue statuses are in preview and only available\nto accounts enrolled in the preview.",
+            "description": "The status of this issue, or null when it has none or issue statuses aren't\navailable in the repository. Issue statuses are in public preview and subject\nto change. They're rolling out gradually, so they might not be available in\nyour repositories yet.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -57036,7 +57036,7 @@
           },
           {
             "name": "viewerCanSetStatus",
-            "description": "Whether the viewer can set this issue's status. Issue statuses are in preview\nand only available to accounts enrolled in the preview.",
+            "description": "Whether the viewer can set this issue's status. Issue statuses are in public\npreview and subject to change. They're rolling out gradually, so they might\nnot be available in your repositories yet.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -78690,7 +78690,7 @@
           },
           {
             "name": "setIssueStatus",
-            "description": "Sets the status of an issue, closing or reopening it when the status calls for\nit. Issue statuses are in preview and only available to accounts enrolled in the preview.",
+            "description": "Sets the status of an issue, closing or reopening it when the status calls for\nit. Issue statuses are in public preview and subject to change. They're\nrolling out gradually, so they might not be available in your repositories yet.",
             "args": [
               {
                 "name": "input",
@@ -94320,7 +94320,7 @@
           },
           {
             "name": "planningStatuses",
-            "description": "The planning statuses issues in the organization's repositories can be in, or\nnull when issue statuses aren't available. Planning statuses are returned in\ndisplay order. Issue statuses are in preview and only available to accounts\nenrolled in the preview.",
+            "description": "The planning statuses issues in the organization's repositories can be in, or\nnull when issue statuses aren't available. Planning statuses are returned in\ndisplay order. Issue statuses are in public preview and subject to change.\nThey're rolling out gradually, so they might not be available in your\nrepositories yet.",
             "args": [
               {
                 "name": "after",
@@ -104149,7 +104149,7 @@
       {
         "kind": "OBJECT",
         "name": "PlanningStatus",
-        "description": "A planning status an issue can be in. Issue statuses are in preview and only available to accounts enrolled in the preview.",
+        "description": "A planning status an issue can be in. Issue statuses are in public preview and\nsubject to change. They're rolling out gradually, so they might not be available\nin your repositories yet.",
         "specifiedByURL": null,
         "isOneOf": null,
         "fields": [
@@ -104216,13 +104216,13 @@
       {
         "kind": "OBJECT",
         "name": "PlanningStatusCategory",
-        "description": "The category of a planning status, which decides whether the issue is open or\nclosed. Issue statuses are in preview and only available to accounts enrolled in the preview.",
+        "description": "The category of a planning status, which decides whether the issue is open or\nclosed. Issue statuses are in public preview and subject to change. They're\nrolling out gradually, so they might not be available in your repositories yet.",
         "specifiedByURL": null,
         "isOneOf": null,
         "fields": [
           {
             "name": "key",
-            "description": "A stable identifier for the category, such as `new`, `backlog`, `planned`,\n`started`, `completed`, `not_planned` or `duplicate`. Clients should expect\nnew keys to be added.",
+            "description": "A stable identifier for the category, such as `backlog`, `planned`, `started`,\n`completed`, `not_planned` or `duplicate`. Clients should expect new keys to be added.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -144645,7 +144645,7 @@
           },
           {
             "name": "planningStatuses",
-            "description": "The planning statuses issues in this repository can be in, or null when issue\nstatuses aren't available for this repository or viewer. Planning statuses are\nreturned in display order. Issue statuses are in preview and only available to\naccounts enrolled in the preview.",
+            "description": "The planning statuses issues in this repository can be in, or null when issue\nstatuses aren't available for this repository or viewer. Planning statuses are\nreturned in display order. Issue statuses are in public preview and subject to\nchange. They're rolling out gradually, so they might not be available in your\nrepositories yet.",
             "args": [
               {
                 "name": "after",
@@ -151724,6 +151724,12 @@
           {
             "name": "TAG_NAME_PATTERN",
             "description": "Tag name pattern",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UNKNOWN",
+            "description": "The rule type is unavailable in the current schema. This value cannot be used to create or update a rule.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -181947,7 +181953,7 @@
           },
           {
             "name": "statusId",
-            "description": "The Node ID of the planning status to move the issue into. It must be one\nlisted in the owner's planningStatuses. The planning status decides whether\nthe issue is open or closed and why, so the issue is closed or reopened if\nneeded. `state` or `stateInput` can also be sent, but only with the same state\nand close reason as the planning status, and without `suggest: true`. When the\nplanning status closes the issue, `stateInput.rationale` is used as the close\nrationale, and a Duplicate planning status takes the issue it duplicates from\n`stateInput.duplicateIssueId`. The issue's status can't be cleared. Issue\nstatuses are in preview and only available to accounts enrolled in the preview.",
+            "description": "The Node ID of the planning status to move the issue into. It must be one\nlisted in the owner's planningStatuses. The planning status decides whether\nthe issue is open or closed and why, so the issue is closed or reopened if\nneeded. `state` or `stateInput` can also be sent, but only with the same state\nand close reason as the planning status, and without `suggest: true`. When the\nplanning status closes the issue, `stateInput.rationale` is used as the close\nrationale, and a Duplicate planning status takes the issue it duplicates from\n`stateInput.duplicateIssueId`. The issue's status can't be cleared. Issue\nstatuses are in public preview and subject to change. They're rolling out\ngradually, so they might not be available in your repositories yet.",
             "type": {
               "kind": "SCALAR",
               "name": "ID",
@@ -189112,7 +189118,7 @@
           },
           {
             "name": "planningStatuses",
-            "description": "The planning statuses issues in the user's repositories can be in, or null\nwhen issue statuses aren't available. Planning statuses are returned in\ndisplay order. Issue statuses are in preview and only available to accounts\nenrolled in the preview.",
+            "description": "The planning statuses issues in the user's repositories can be in, or null\nwhen issue statuses aren't available. Planning statuses are returned in\ndisplay order. Issue statuses are in public preview and subject to change.\nThey're rolling out gradually, so they might not be available in your\nrepositories yet.",
             "args": [
               {
                 "name": "after",
